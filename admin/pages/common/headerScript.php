@@ -1,6 +1,7 @@
 <!-- General CSS Files -->
 <link rel="stylesheet" href="<?=base_url_admin()?>assets/css/app.min.css">
 <link rel="stylesheet" href="<?=base_url_admin()?>assets/bundles/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="<?=base_url_admin()?>assets/bootstrap/css/bootstrap.css">
 <!-- General Datatable CSS Files -->
 <link rel="stylesheet" href="<?=base_url_admin()?>assets/bundles/datatables/datatables.min.css">
 <link rel="stylesheet" href="<?=base_url_admin()?>assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
