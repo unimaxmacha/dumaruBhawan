@@ -1,0 +1,12 @@
+.body{
+	font: 14px sans-serif;
+}
+
+.wrapper{
+	width: 500px; 
+	padding: 20px;
+}
+
+.welcome_msg {
+	text-align: center; 
+}
