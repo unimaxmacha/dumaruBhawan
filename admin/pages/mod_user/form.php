@@ -13,32 +13,45 @@
       $input_firstname = trim($_POST["firstname"]);
       if (empty($input_firstname)) {
          $firstname_err = "Please enter your first name.";
-      } else {
+      } elseif(!filter_var($input_firstname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+         $firstname_err = "Please enter a valid firstname.";
+         } 
+      else {
          $firstname = $input_firstname;
+      }
+
+      // Validate Lastname
+      $input_lastname = trim($_POST["lastname"]);
+      if (empty($input_lastname)) {
+         $lastname_err = "Please enter your lastname name.";
+      } elseif(!filter_var($input_lastname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+         $lastname_err = "Please enter a valid lastname.";
+         } 
+      else {
+         $lastname = $input_lastname;
       }
    }
 ?>
 <section class="section">
    <div class="section-body">
-      <div class="row">
+      <div class="row"> 
          <div class="col-12">
             <div class="card">
-               <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="needs-validation" novalidate="">
+               <form action="" method="post">
                   <div class="card-header">
                      <h4>Create New User Form!</h4>
                   </div>
                   <div class="card-body">
                      <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group <?php echo (!empty($firstname_err)) ? 'has-error' : ''; ?> col-md-6">
                            <label for="firstname">Firstname</label>
-                           <input type="text" class="form-control" id="firstname" placeholder="Firstname" required="">
-                           <div class="invalid-feedback">
-                              What's your name?
-                           </div>
+                           <input type="text" class="form-control" name="firstname" value = "<?php echo $firstname; ?>" placeholder="Firstname">
+                           <div class="help-block"><?php echo $firstname_err; ?></div>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group <?php echo (!empty($lastname_err)) ? 'has-error' : ''; ?> col-md-6">
                            <label for="lastname">Lastname</label>
-                           <input type="text" class="form-control" id="lastname" placeholder="Lastname">
+                           <input type="text" class="form-control" name="lastname" value="<?php echo $lastname; ?>" placeholder="Lastname">
+                           <div class="help-block"><?php echo $lastname_err; ?> </div>
                         </div>
                      </div>
 
