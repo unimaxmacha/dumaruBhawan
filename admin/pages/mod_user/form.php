@@ -30,6 +30,41 @@
       else {
          $lastname = $input_lastname;
       }
+
+      // Validate Username
+      $input_username = trim($_POST["username"]);
+      if (empty($input_username)) {
+         $username_err = "Please enter username.";
+      } else {
+         // Prepare a select statement.
+         $sql = "SELECT id FROM tbl_users WHERE username = ?";
+
+         if ($stmt = $db_Conn->prepare($sql)) {
+            $stmt->bind_param("s", $param_username);
+
+            // Set parameters
+            $param_username = $input_username;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute()) {
+               // Store result
+               $stmt->store_result();
+
+               if ($stmt->num_rows == 1) {
+                  $username_err = "This username is already exists. Please try with another username.";
+               } else {
+                  $username = $input_username;
+               }
+            } else {
+                echo "Opps! Something wrong in select SQL Query. Please try again later.";
+            }
+
+            // Close Statement
+            $stmt->close();
+         }
+      }
+
+      // Validate 
    }
 ?>
 <section class="section">
@@ -56,9 +91,10 @@
                      </div>
 
                      <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group <?php echo (!empty($username_err))?'has-error':''; ?> col-md-6">
                            <label for="username">Username</label>
-                           <input type="text" class="form-control" id="username" placeholder="Username">
+                           <input type="text" class="form-control" name="username" value="<?php echo $username; ?>" placeholder="Username">
+                           <div class="help-block"><?php echo $username_err; ?></div>
                         </div>
                         <div class="form-group col-md-6">
                            <label for="contactno">Contact No</label>
